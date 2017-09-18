@@ -16,10 +16,21 @@ namespace MergeTextFilesInFolder
             Console.WriteLine("Give a valid path to the folder.");
             string folderPath =   Console.ReadLine().ToString();
 
-            //test path here
-            // C:\Users\Andro\Desktop\Test Folder for VS project
-            string[] fileNamesArray = Directory.GetFiles(folderPath) ;
+            Console.WriteLine("Pick a file type: 1 = txt 2= xml");
+            int fileType = Convert.ToInt32 ( Console.ReadLine());
 
+            string fileExtension = ".txt";
+            if (fileType == 2)
+            {
+                fileExtension = ".xml";
+            }
+            //test path here, to paste right click top of console and select/edit/paste
+            // C:\Users\Andro\Desktop\Test Folder for VS project
+            string[] fileNamesArray = Directory.GetFiles(folderPath, "*"+fileExtension) ;
+            if(fileNamesArray == null)
+            {
+                fileNamesArray[0] = "That is not  valid file path";
+            }
             //Display all files
             foreach (string name in fileNamesArray)
             {

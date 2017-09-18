@@ -25,6 +25,10 @@ namespace MergeTextFilesInFolder
             //test path here, to paste right click top of console and select/edit/paste
             // C:\Users\Andro\Desktop\Test Folder for VS project
 
+            if(fileNamesArray.Length == 0 )
+            {
+                Console.WriteLine("That file type is not present in the folder you selected");
+            }
             try
             {
                 

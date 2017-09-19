@@ -89,7 +89,7 @@ namespace MergeTextFilesInFolder
         {
             //Console.WriteLine("Give a valid path for merged file");
             //return Console.ReadLine().ToString();
-            return @"C:\Users\Andro\Desktop\Test Folder for VS project\MergedFile.txt";
+            return @"C:\Users\Andro\Desktop\Test Folder for VS project\MergedFile.rtf";
         }
         static string[] FileNamesToArray(string folderPath, string fileTypeExtension)
         {

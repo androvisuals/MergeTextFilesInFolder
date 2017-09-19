@@ -21,9 +21,15 @@ namespace MergeTextFilesinFolderGUI
     /// </summary>
     public partial class MainWindow : Window
     {
+        //the selected folder path where the files are to merge
+        String sPath = String.Empty;
+        //The chosen file type to merge, based on file extension like  ".txt" ".rtf"
+        //.txt is chosen as first string due to data only being passed when something changes
+        String fileTypeChosen = ".txt";
         public MainWindow()
         {
             InitializeComponent();
+            
         }
 
         private void SelectFolderClick(object sender, RoutedEventArgs e)
@@ -37,12 +43,43 @@ namespace MergeTextFilesinFolderGUI
             {
                 //----< Selected Folder >---- 
                 //< Selected Path > 
-                String sPath = folderDialog.SelectedPath;
+                sPath = folderDialog.SelectedPath;
                 //tbxFolder.Text = sPath;
                 //</ Selected Path >
                 Console.WriteLine("Select Folder Button has been clicked");
                 Console.WriteLine("The folder path you selected is " + sPath);
             }
+        }
+
+        private void FileTypeComboBoxIntialize(object sender, EventArgs e)
+        {
+            // FileTypeComboBoxIntialize.
+            // ... A List.
+            List<string> data = new List<string>();
+            data.Add(".txt");
+            data.Add(".rtf");
+            data.Add(".xml");
+            
+
+            // ... Get the ComboBox reference.
+            var comboBox = sender as ComboBox;
+
+            // ... Assign the ItemsSource to the List.
+            
+            comboBox.ItemsSource= data;
+            // ... Make the first item selected.
+            comboBox.SelectedIndex = 0;
+        }
+
+        private void FileTypeComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // ... Get the ComboBox.
+            var comboBox = sender as ComboBox;
+
+            // ... Set SelectedItem as Window Title.
+            fileTypeChosen = comboBox.SelectedItem as string;
+            //this.Title = "Selected: " + value;
+            Console.WriteLine("User has selected the file type " + fileTypeChosen);
         }
     }
 }

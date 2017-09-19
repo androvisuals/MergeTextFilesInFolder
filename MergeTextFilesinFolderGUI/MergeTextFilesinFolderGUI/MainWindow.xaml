@@ -11,7 +11,10 @@
             <ColumnDefinition Width="155*"/>
             <ColumnDefinition Width="362*"/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="SelectFolderButton" Content="Select Folder" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="115" Height="50" FontSize="16" Click="SelectFolderClick"/>
+        <Button x:Name="SelectFolderButton" Content="Select Folder" HorizontalAlignment="Left" Margin="15,137,0,0" VerticalAlignment="Top" Width="115" Height="50" FontSize="16" Click="SelectFolderClick"/>
+        <ComboBox x:Name="FileTypeComboBox" HorizontalAlignment="Left" Margin="10,51,0,0" VerticalAlignment="Top" Width="120" Initialized="FileTypeComboBoxIntialize" SelectionChanged="FileTypeComboBoxSelectionChanged"/>
+        <Label Content="Pick file extension type to merge" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="185" Grid.ColumnSpan="2"/>
+        <Label Content="Pick folder with target files to merge&#xD;&#xA;" HorizontalAlignment="Left" Margin="15,100,0,0" VerticalAlignment="Top" Width="233" Grid.ColumnSpan="2" Height="24"/>
 
     </Grid>
 </Window>

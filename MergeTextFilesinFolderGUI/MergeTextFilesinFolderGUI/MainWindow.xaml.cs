@@ -25,7 +25,7 @@ namespace MergeTextFilesinFolderGUI
         String sPath = String.Empty;
         //The chosen file type to merge, based on file extension like  ".txt" ".rtf"
         //.txt is chosen as first string due to data only being passed when something changes
-        String fileTypeChosen = ".txt";
+        String fileTypeChosen = String.Empty;// ".txt";
         public MainWindow()
         {
             InitializeComponent();
@@ -68,18 +68,36 @@ namespace MergeTextFilesinFolderGUI
             
             comboBox.ItemsSource= data;
             // ... Make the first item selected.
-            comboBox.SelectedIndex = 0;
+            comboBox.SelectedIndex = -1;
         }
 
         private void FileTypeComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // ... Get the ComboBox.
             var comboBox = sender as ComboBox;
-
             // ... Set SelectedItem as Window Title.
             fileTypeChosen = comboBox.SelectedItem as string;
             //this.Title = "Selected: " + value;
-            Console.WriteLine("User has selected the file type " + fileTypeChosen);
+            //Console.WriteLine("User has selected the file type " + fileTypeChosen);
+
+            switch (fileTypeChosen)
+            {
+                case ".txt":
+                    Console.WriteLine("User has selected " + fileTypeChosen);
+                    break;
+
+                case ".rtf":
+                    Console.WriteLine("User has selected " + fileTypeChosen);
+                    break;
+
+                case ".xml":
+                    Console.WriteLine("User has selected " + fileTypeChosen);
+                    break;
+
+            }
+            
+
+            
         }
     }
 }

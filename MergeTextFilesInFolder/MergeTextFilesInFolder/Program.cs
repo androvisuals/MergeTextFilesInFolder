@@ -85,6 +85,8 @@ namespace MergeTextFilesInFolder
             }*/
             Console.ReadLine();
         }
+        /* ALL FUNCTIONS */
+
         //request user to type in what file type they want to merge
         static string FileTypeToMerge()
         {

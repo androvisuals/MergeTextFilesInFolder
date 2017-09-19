@@ -19,7 +19,8 @@ namespace MergeTextFilesInFolder
             string fileTypeExtension = FileTypeToMerge();
             string folderPath = FolderPathWithFilesToMerge();
             string mergePath = MergeFilesPath("MergedFiles"+fileTypeExtension);
-
+            
+            //List<string> mergePath = Directory.GetFiles(folderPath, "*" + fileTypeExtension);
             //deletes any previous merged file to avoid exceptions being thrown
             DeleteMergedFile(mergePath);
 
@@ -54,14 +55,16 @@ namespace MergeTextFilesInFolder
                         //reads each line
                         string line = reader.ReadToEnd();
                         
-                        finalResult += line;
-                        Console.WriteLine(" iteration inside Streamreader is " + iteration);
+                        finalResult = line;
+                        //Console.WriteLine(" iteration inside Streamreader is " + iteration + finalResult);
 
                         using (StreamWriter writer = File.AppendText(mergePath))// new StreamWriter(mergePath))
-                            {
-                                writer.Write(finalResult);
-                                // writer.Write("This is a test to write into text file , iteration is "+ iteration );
-                            }
+                        {
+                                
+                            writer.Write(finalResult);
+                           
+                            // writer.Write("This is a test to write into text file , iteration is "+ iteration );
+                        }
                     }
                      
                 //Console.WriteLine("Line writer is " + line);
@@ -121,8 +124,9 @@ namespace MergeTextFilesInFolder
             }
             return fileNamesArray;
         }
+   
 
-      
+
 
     }
    

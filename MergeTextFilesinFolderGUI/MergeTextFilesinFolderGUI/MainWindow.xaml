@@ -5,19 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MergeTextFilesinFolderGUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="File Merger v 0.1" Height="350" Width="525">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="155*"/>
             <ColumnDefinition Width="362*"/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="SelectFolderButton" Content="Select Folder" HorizontalAlignment="Left" Margin="15,137,0,0" VerticalAlignment="Top" Width="115" Height="50" FontSize="16" Click="SelectFolderClick"/>
-        <ComboBox x:Name="FileTypeComboBox" HorizontalAlignment="Left" Margin="10,51,0,0" VerticalAlignment="Top" Width="120" Initialized="FileTypeComboBoxIntialize" SelectionChanged="FileTypeComboBoxSelectionChanged"/>
-        <Label Content="Pick file extension type to merge" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="185" Grid.ColumnSpan="2"/>
-        <Label Content="Pick folder with target files to merge&#xD;&#xA;" HorizontalAlignment="Left" Margin="15,100,0,0" VerticalAlignment="Top" Width="233" Grid.ColumnSpan="2" Height="24"/>
-        <Label Content="Pick folder location for merged file&#xD;&#xA;&#xA;" HorizontalAlignment="Left" Margin="15,205,0,0" VerticalAlignment="Top" Width="233" Grid.ColumnSpan="2" Height="24"/>
-        <Button x:Name="SelectMergeLocationButton" Content="Button" HorizontalAlignment="Left" Margin="15,234,0,0" VerticalAlignment="Top" Width="115" Height="57" Click="SelectMergeLocationButton_Click"/>
-        <Button x:Name="MergeButton" Content="MERGE" Grid.Column="1" HorizontalAlignment="Left" Margin="108,84,0,0" VerticalAlignment="Top" Width="144" Click="MergeButtonClick" Height="68"/>
-        <TextBox x:Name="UserDefinedFileName" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="108,35,0,0" TextWrapping="Wrap" Text="Enter file name here" VerticalAlignment="Top" Width="144" TextChanged="UserDefinedNameTextBoxChanged"/>
+        <Button x:Name="SelectFolderButton" Content="Select Folder" HorizontalAlignment="Left" Margin="10,141,0,0" VerticalAlignment="Top" Width="210" Height="25" FontSize="14" Click="SelectFolderClick" Grid.ColumnSpan="2"/>
+        <ComboBox x:Name="FileTypeComboBox" HorizontalAlignment="Left" Margin="10,42,0,0" VerticalAlignment="Top" Width="210" Initialized="FileTypeComboBoxIntialize" SelectionChanged="FileTypeComboBoxSelectionChanged" Grid.ColumnSpan="2"/>
+        <Label Content="1 - Pick file extension type to merge" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="210" Grid.ColumnSpan="2"/>
+        <Label Content="2 - Pick folder with target files to merge&#xA;" HorizontalAlignment="Left" Margin="10,112,0,0" VerticalAlignment="Top" Width="233" Grid.ColumnSpan="2" Height="24"/>
+        <Label Content="3 - Pick folder location for merged file&#xA;&#xA;" HorizontalAlignment="Left" Margin="15,200,0,0" VerticalAlignment="Top" Width="233" Grid.ColumnSpan="2" Height="24"/>
+        <Button x:Name="SelectMergeLocationButton" Content="Select Folder" HorizontalAlignment="Left" Margin="15,236,0,0" VerticalAlignment="Top" Width="205" Height="28" Click="SelectMergeLocationButton_Click" Grid.ColumnSpan="2"/>
+        <Button x:Name="MergeButton" Content="MERGE" Grid.Column="1" HorizontalAlignment="Left" Margin="198,236,0,0" VerticalAlignment="Top" Width="144" Click="MergeButtonClick" Height="28"/>
+        <TextBox x:Name="UserDefinedFileName" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="198,72,0,0" TextWrapping="Wrap" Text="Enter file name here" VerticalAlignment="Top" Width="144" TextChanged="UserDefinedNameTextBoxChanged"/>
+        <Label Content="4 - Type file name without &#xD;&#xA;extension&#xA;" HorizontalAlignment="Left" Margin="198,19,0,0" VerticalAlignment="Top" Width="154" Height="45" Grid.Column="1"/>
+        <Label Content="5 - Press Button to merge &#xD;&#xA;all files into one&#xD;&#xA;&#xA;" HorizontalAlignment="Left" Margin="198,179,0,0" VerticalAlignment="Top" Width="154" Height="45" Grid.Column="1"/>
     </Grid>
 </Window>

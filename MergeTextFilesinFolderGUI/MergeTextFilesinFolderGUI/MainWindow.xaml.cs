@@ -23,7 +23,6 @@ namespace MergeTextFilesinFolderGUI
     public partial class MainWindow : Window
     {
         //The chosen file type to merge, based on file extension like  ".txt" ".rtf"
-        //.txt is chosen as first string due to data only being passed when something changes
         String fileTypeChosen = String.Empty;// ".txt";
 
         //the selected folder path where the files are to merge together
@@ -32,6 +31,7 @@ namespace MergeTextFilesinFolderGUI
         //the final Folder path where the merged file will be placed.
         String mergeFolderPath = String.Empty;
 
+        //Placeholder for file name, if user leaves blank then it becomes something like MergedFile.txt
         String userDefinedFileName = "MergedFile";
 
         public MainWindow()
@@ -39,9 +39,11 @@ namespace MergeTextFilesinFolderGUI
             InitializeComponent();
             
         }
-
+        
+        //When select folder button is clicked run the following code
         private void SelectFolderClick(object sender, RoutedEventArgs e)
         {
+            //Used to allow the user to browse to a folder
             WinForms.FolderBrowserDialog folderDialog = new WinForms.FolderBrowserDialog();
             folderDialog.ShowNewFolderButton = false;
             folderDialog.SelectedPath = System.AppDomain.CurrentDomain.BaseDirectory;
@@ -59,13 +61,14 @@ namespace MergeTextFilesinFolderGUI
             }
         }
 
+        //Fills ComboBox with all file types.
         private void FileTypeComboBoxIntialize(object sender, EventArgs e)
         {
             // FileTypeComboBoxIntialize.
             // ... A List.
             List<string> data = new List<string>();
             data.Add(".txt");
-            data.Add(".rtf");
+            //data.Add(".rtf");
             data.Add(".xml");
             
 
@@ -79,6 +82,7 @@ namespace MergeTextFilesinFolderGUI
             comboBox.SelectedIndex = -1;
         }
 
+        //If user picks something in the comboBox run this code. Changes string "filetypeChosen"
         private void FileTypeComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // ... Get the ComboBox.
@@ -92,11 +96,11 @@ namespace MergeTextFilesinFolderGUI
                 case ".txt":
                     Console.WriteLine("User has selected " + fileTypeChosen);
                     break;
-
+                /*
                 case ".rtf":
                     Console.WriteLine("User has selected " + fileTypeChosen);
                     break;
-
+                */
                 case ".xml":
                     Console.WriteLine("User has selected " + fileTypeChosen);
                     break;
@@ -104,6 +108,7 @@ namespace MergeTextFilesinFolderGUI
             }  
         }
 
+        //Run when user clicks the button for the merged file location. Changes string "mergeFolderPath"
         private void SelectMergeLocationButton_Click(object sender, RoutedEventArgs e)
         {
             WinForms.FolderBrowserDialog folderDialog = new WinForms.FolderBrowserDialog();
@@ -116,74 +121,57 @@ namespace MergeTextFilesinFolderGUI
                 //----< Selected Folder >---- 
                 //< Selected Path > 
                 mergeFolderPath = folderDialog.SelectedPath;
-                //tbxFolder.Text = selectedFolderPath;
-                //</ Selected Path >
+             
                 Console.WriteLine("Select Folder Button has been clicked");
                 Console.WriteLine("The folder path for the merged file is " + mergeFolderPath);
             }
         }
-
+        //This runs all the main code when the user presses the merge button
         private void MergeButtonClick(object sender, RoutedEventArgs e)
         {
             //This is where all the final processing takes place
 
-            //deletes any previous merged file to avoid exceptions being thrown
+            //merges all strings together for the final merged file 
             mergeFolderPath = mergeFolderPath +@"\"+userDefinedFileName+fileTypeChosen;
-            Console.WriteLine(mergeFolderPath);
+          
+            //deletes any previous merged file to avoid exceptions being thrown
             DeleteMergedFile(mergeFolderPath);
 
-            
+            //create an array of strings made up of all matching files. example fileNamesArray[0] = "TextFile_01.txt"
             string[] fileNamesArray = FileNamesToArray(selectedFolderPath, fileTypeChosen);
 
+            //used to catch exceptions, still need to add more. Placeholder
             try
             {
-                Console.WriteLine("You picked the file type " + fileTypeChosen);
-                Console.WriteLine("All the files that match your folder and selection are:");
-                //Display all files
-
-
-                int iteration = 0;
+                //Empty string to avoid null.
                 string finalResult = String.Empty;
-
-                //Console.WriteLine("End of line !");
-
-
-
+                
+                //iterates as many times as there are files inthe folder that match file type extension.
                 foreach (string name in fileNamesArray)
                 {
-                    //writes each file name out for debugging purposes
-                    //Console.WriteLine("The file name is " + Path.GetFileName( name));
-                    iteration += 1;
-                    Console.WriteLine(" this is iteration" + iteration);
-                    Console.WriteLine(" the name variable is " + name);
-
-
+                    //StreamReader Class used to read files
                     using (StreamReader reader = new StreamReader(name))
                     {
-                        //reads each line
+                        //reads entire file from start to end, causes problems with rtf
                         string line = reader.ReadToEnd();
 
+                        //may be used later if i need to use StreamReader on a per line basis
                         finalResult = line;
-                        //Console.WriteLine(" iteration inside Streamreader is " + iteration + finalResult);
 
-                        using (StreamWriter writer = File.AppendText(mergeFolderPath))// new StreamWriter(mergePath))
+                        //StreamWriter adds data to the stream until foreach is finished iterating
+                        using (StreamWriter writer = File.AppendText(mergeFolderPath))
                         {
-
+                            //write data to file on each iteration
                             writer.Write(finalResult);
-
-                            // writer.Write("This is a test to write into text file , iteration is "+ iteration );
                         }
                     }
-
-                    //Console.WriteLine("Line writer is " + line);
-                    //Puts all text together
-                    //Console.WriteLine(line);
                 }
             }
-            
+            //To catch exceptions, still have to figure out how to add mutliple catch expressions.
             catch (System.IO.DirectoryNotFoundException error)
             {
-                //throw e;
+                //throws error when a directory cannot be found, still needs
+                //to be routed to an actual debug window in the gui
                 Console.WriteLine("an error has occured: '{0}' ", error.Message);
             }
             
@@ -205,34 +193,29 @@ namespace MergeTextFilesinFolderGUI
         {
             Console.WriteLine("Give a valid path to the folder.");
             return Console.ReadLine().ToString();
-            //return @"C:\Users\Andro\Desktop\Test Folder for VS project\";
         }
 
+        //Used to delete any previous merged file. If we don't delete it all gets appended to an existing file.
         static void DeleteMergedFile(string deletePath)
         {
-            File.Delete(deletePath);
-            
+            File.Delete(deletePath);   
         }
 
-        static string MergeFileselectedFolderPath(string fileExtensionType)
-        {
-            Console.WriteLine("Give a valid path for merged file");
-            string userInput = Console.ReadLine().ToString();
-            //@ is to try and fix the .rtf formatting problem doesn't work yet
-            return userInput + @"\" + fileExtensionType;
-            //return @"C:\Users\Andro\Desktop\Test Folder for VS project\MergedFile.rtf";
-        }
-
+        // Gets all file names from a folder that match the file extension that was chosen.
+        //Array.Length = totalMatchingFiles
         static string[] FileNamesToArray(string folderPath, string fileTypeExtension)
         {
+            //fill each array index with each matching file type
             string[] fileNamesArray = Directory.GetFiles(folderPath, "*" + fileTypeExtension);
-            if (fileNamesArray.Length == 0)//if file type isn't present inform user
+            //if Array.length == 0 then no matching file was found, PUSH to DEBUG GUI
+            if (fileNamesArray.Length == 0)
             {
                 Console.WriteLine("That file type is not present in the folder you selected");
             }
             return fileNamesArray;
         }
 
+        //if user types a file name into the text box then this updates the userDefinedFileName string
         private void UserDefinedNameTextBoxChanged(object sender, TextChangedEventArgs e)
         {
             userDefinedFileName = UserDefinedFileName.Text;

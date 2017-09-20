@@ -32,6 +32,8 @@ namespace MergeTextFilesinFolderGUI
         //the final Folder path where the merged file will be placed.
         String mergeFolderPath = String.Empty;
 
+        String userDefinedFileName = "MergedFile";
+
         public MainWindow()
         {
             InitializeComponent();
@@ -121,6 +123,73 @@ namespace MergeTextFilesinFolderGUI
             }
         }
 
+        private void MergeButtonClick(object sender, RoutedEventArgs e)
+        {
+            //This is where all the final processing takes place
+
+            //deletes any previous merged file to avoid exceptions being thrown
+            mergeFolderPath = mergeFolderPath +@"\"+userDefinedFileName+fileTypeChosen;
+            Console.WriteLine(mergeFolderPath);
+            DeleteMergedFile(mergeFolderPath);
+
+            
+            string[] fileNamesArray = FileNamesToArray(selectedFolderPath, fileTypeChosen);
+
+            try
+            {
+                Console.WriteLine("You picked the file type " + fileTypeChosen);
+                Console.WriteLine("All the files that match your folder and selection are:");
+                //Display all files
+
+
+                int iteration = 0;
+                string finalResult = String.Empty;
+
+                //Console.WriteLine("End of line !");
+
+
+
+                foreach (string name in fileNamesArray)
+                {
+                    //writes each file name out for debugging purposes
+                    //Console.WriteLine("The file name is " + Path.GetFileName( name));
+                    iteration += 1;
+                    Console.WriteLine(" this is iteration" + iteration);
+                    Console.WriteLine(" the name variable is " + name);
+
+
+                    using (StreamReader reader = new StreamReader(name))
+                    {
+                        //reads each line
+                        string line = reader.ReadToEnd();
+
+                        finalResult = line;
+                        //Console.WriteLine(" iteration inside Streamreader is " + iteration + finalResult);
+
+                        using (StreamWriter writer = File.AppendText(mergeFolderPath))// new StreamWriter(mergePath))
+                        {
+
+                            writer.Write(finalResult);
+
+                            // writer.Write("This is a test to write into text file , iteration is "+ iteration );
+                        }
+                    }
+
+                    //Console.WriteLine("Line writer is " + line);
+                    //Puts all text together
+                    //Console.WriteLine(line);
+                }
+            }
+            
+            catch (System.IO.DirectoryNotFoundException error)
+            {
+                //throw e;
+                Console.WriteLine("an error has occured: '{0}' ", error.Message);
+            }
+            
+        }
+
+
         /* ALL FUNCTIONS */
 
         //request user to type in what file type they want to merge
@@ -164,6 +233,10 @@ namespace MergeTextFilesinFolderGUI
             return fileNamesArray;
         }
 
-        
+        private void UserDefinedNameTextBoxChanged(object sender, TextChangedEventArgs e)
+        {
+            userDefinedFileName = UserDefinedFileName.Text;
+            Console.WriteLine("User defined file name is " + userDefinedFileName);
+        }
     }
 }

@@ -126,7 +126,10 @@ namespace MergeTextFilesInFolder
             }
             return fileNamesArray;
         }
-   
+
+
+
+        
 
 
 

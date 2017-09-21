@@ -15,6 +15,15 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WinForms = System.Windows.Forms;
 
+
+/*
+    Things to add:
+    - Folder location after user has picked it via a textbox for both folder select buttons
+    - Message if merge was succesful or not
+    - expand file type selection
+    - allow user to pick an extra filetype thats not included with the original dropdown list.
+
+*/
 namespace MergeTextFilesinFolderGUI
 {
     /// <summary>

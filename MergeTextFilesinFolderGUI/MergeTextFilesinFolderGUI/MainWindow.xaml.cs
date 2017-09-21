@@ -58,6 +58,8 @@ namespace MergeTextFilesinFolderGUI
                 //</ Selected Path >
                 Console.WriteLine("Select Folder Button has been clicked");
                 Console.WriteLine("The folder path you selected is " + selectedFolderPath);
+
+                
             }
         }
 
@@ -188,12 +190,14 @@ namespace MergeTextFilesinFolderGUI
             return fileTypeExtension;
         }
 
+        /*
         //request user to type in the folder path where the files are to merge
         static string FolderPathWithFilesToMerge()
         {
             Console.WriteLine("Give a valid path to the folder.");
             return Console.ReadLine().ToString();
         }
+        */
 
         //Used to delete any previous merged file. If we don't delete it all gets appended to an existing file.
         static void DeleteMergedFile(string deletePath)
@@ -221,5 +225,6 @@ namespace MergeTextFilesinFolderGUI
             userDefinedFileName = UserDefinedFileName.Text;
             Console.WriteLine("User defined file name is " + userDefinedFileName);
         }
+
     }
 }
